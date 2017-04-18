@@ -24,7 +24,7 @@ class PDFController extends Controller
                 header("Content-type: application/octet-stream");
                 header("Content-Disposition: attachment; filename=$file");
                 $data = file_get_contents($file);
-                unlink($file);
+//                unlink($file);
                 exit;
             }
         }
