@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('please-and-thank-you', 'PDFController@makePdf');
