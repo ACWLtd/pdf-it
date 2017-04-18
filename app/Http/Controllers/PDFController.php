@@ -17,7 +17,15 @@ class PDFController extends Controller
         $name = $request->pdfName ?: str_slug($url);
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
-            var_dump(shell_exec("xvfb-run wkhtmltopdf $url $name.pdf"));
+            $file = "$name.pdf";
+            $exec = shell_exec("xvfb-run wkhtmltopdf $url $file");
+
+            if ( $exec && file_exists($file) ) {
+                header("Content-type: application/pdf");
+                header("Content-Disposition: attachment; filename=$file");
+                $data = file_get_contents($file);
+                unlink($file);
+            }
         }
 
     }
