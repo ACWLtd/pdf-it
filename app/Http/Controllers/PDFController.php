@@ -21,10 +21,11 @@ class PDFController extends Controller
             $exec = shell_exec("xvfb-run wkhtmltopdf $url $file");
 
             if ( $exec && file_exists($file) ) {
-                header("Content-type: application/pdf");
+                header("Content-type: application/octet-stream");
                 header("Content-Disposition: attachment; filename=$file");
                 $data = file_get_contents($file);
                 unlink($file);
+                exit;
             }
         }
 
