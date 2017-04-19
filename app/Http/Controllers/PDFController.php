@@ -49,12 +49,12 @@ class PDFController extends Controller
             $exec = shell_exec("xvfb-run wkhtmltopdf -T 0 -B 0 -L 0 -R 0 $url $file");
 
             if ( $exec && file_exists($file) ) {
-                header('Content-type: application/octet-stream');
-                header('Content-Disposition: attachment; filename="' . basename($file) . '"');
-                header('Expires: 0');
-                header('Cache-Control: must-revalidate');
-                header('Pragma: public');
-                header('Content-Length: ' . filesize($file));
+//                header('Content-type: application/octet-stream');
+//                header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+//                header('Expires: 0');
+//                header('Cache-Control: must-revalidate');
+//                header('Pragma: public');
+//                header('Content-Length: ' . filesize($file));
                 $data = file_get_contents($file);
                 unlink($file);
                 return $data;
