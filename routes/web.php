@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('please-and-thank-you', 'PDFController@makePdf');
+Route::get('just-the-data-ta', 'PDFController@grabPdfData');
