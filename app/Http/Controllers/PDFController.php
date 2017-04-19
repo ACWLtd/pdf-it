@@ -18,7 +18,7 @@ class PDFController extends Controller
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
-            $exec = shell_exec("xvfb-run wkhtmltopdf $url $file");
+            $exec = shell_exec("xvfb-run wkhtmltopdf -T 0 -B 0 -L 0 -R 0 $url $file");
 
             if ( $exec && file_exists($file) ) {
                 header('Content-type: application/octet-stream');
