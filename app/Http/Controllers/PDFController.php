@@ -11,6 +11,21 @@ class PDFController extends Controller
 
     }
 
+    /**
+     * PDF maker
+     * @param $url
+     * @param $file
+     * @return string
+     */
+    protected function nowMake($url, $file)
+    {
+        return shell_exec("xvfb-run wkhtmltopdf -T 0 -B 0 -L 0 -R 0 $url $file");
+    }
+
+    /**
+     * Create and download PDF
+     * @param Request $request
+     */
     public function makePdf(Request $request)
     {
         $url = $request->url;
@@ -18,7 +33,7 @@ class PDFController extends Controller
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
-            $exec = shell_exec("xvfb-run wkhtmltopdf -T 0 -B 0 -L 0 -R 0 $url $file");
+            $exec = $this->nowMake($url, $file);
 
             if ( $exec && file_exists($file) ) {
                 header('Content-type: application/octet-stream');
@@ -46,15 +61,9 @@ class PDFController extends Controller
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
-            $exec = shell_exec("xvfb-run wkhtmltopdf -T 0 -B 0 -L 0 -R 0 $url $file");
+            $exec = $exec = $this->nowMake($url, $file);
 
             if ( $exec && file_exists($file) ) {
-//                header('Content-type: application/octet-stream');
-//                header('Content-Disposition: attachment; filename="' . basename($file) . '"');
-//                header('Expires: 0');
-//                header('Cache-Control: must-revalidate');
-//                header('Pragma: public');
-//                header('Content-Length: ' . filesize($file));
                 $data = file_get_contents($file);
                 unlink($file);
                 return $data;
