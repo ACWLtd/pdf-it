@@ -19,7 +19,7 @@ class PDFController extends Controller
      */
     protected function nowMake($url, $file)
     {
-        return shell_exec("xvfb-run wkhtmltopdf -T 0 -B 0 -L 0 -R 0 $url $file");
+        return shell_exec("xvfb-run wkhtmltopdf -T 5 -B 5 -L 5 -R 5 $url $file");
     }
 
     /**
