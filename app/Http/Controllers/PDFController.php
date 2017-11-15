@@ -19,7 +19,7 @@ class PDFController extends Controller
      */
     protected function nowMake($url, $file)
     {
-        return shell_exec("xvfb-run wkhtmltopdf -T 5 -B 5 -L 10 -R 10 --print-media-type $url $file");
+        return shell_exec("xvfb-run wkhtmltopdf -T 5 -B 5 -L 10 -R 10 --print-media-type '$url' '$file'");
     }
 
     /**
@@ -35,9 +35,7 @@ class PDFController extends Controller
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
-            $exec = $this->nowMake(urlencode($url), $file);
-
-            var_dump($exec);
+            $exec = $this->nowMake($url, $file);
 
             if ( $exec && file_exists($file) ) {
                 header('Content-type: application/octet-stream');
