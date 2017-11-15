@@ -33,12 +33,12 @@ class PDFController extends Controller
         $url = $UriParts['url'];
         $name = $UriParts['pdfName'];
 
-        dd(filter_var($url, FILTER_VALIDATE_URL));
-        
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
             $exec = $this->nowMake($url, $file);
 
+            var_dump(file_exists($file));
+            
             if ( $exec && file_exists($file) ) {
                 header('Content-type: application/octet-stream');
                 header('Content-Disposition: attachment; filename="' . basename($file) . '"');
