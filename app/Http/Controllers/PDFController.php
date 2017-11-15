@@ -29,8 +29,8 @@ class PDFController extends Controller
     public function makePdf(Request $request)
     {
         $url = $request->url;
-        var_dump($request->getRequestUri());
-        dd($request->getPathInfo());
+        dd($this->getUriParts($request->getRequestUri()));
+
 
 
         $name = $request->pdfName ?: str_slug($url);
@@ -74,4 +74,37 @@ class PDFController extends Controller
             }
         }
     }
+
+	/**
+	 * Get URI parts - so as to preserve GET variables in URI
+	 * @param $uri
+	 *
+	 * @return array
+	 */
+    protected function getUriParts($uri)
+    {
+    	$uri = strtolower($uri);
+    	$url = '';
+    	$pdfName = '';
+
+    	if ( str_contains($uri, '?url=') ) {
+    		$url = explode('?url=', $uri)[1];
+
+    		if ( str_contains($uri, '&pdfname=') ) {
+    			$innerParts = explode('&pdfname=', $url);
+    			$url = $innerParts[0];
+    			$pdfName = str_slug($innerParts[1]);
+		    }
+		    else
+		    	$pdfName = str_slug($url);
+	    }
+	    elseif ( str_contains($uri, '?pdfname=') && str_contains($uri, '&url=') ) {
+    		$parts = explode('&url=', $uri);
+    		$url = $parts[1];
+    		$pdfName = str_slug(explode('?pdfname=', $parts[0])[1]);
+	    }
+
+	    return compact('url', 'pdfName');
+    }
+
 }
