@@ -29,6 +29,7 @@ class PDFController extends Controller
     public function makePdf(Request $request)
     {
         $url = $request->url;
+        dd($url);
         $name = $request->pdfName ?: str_slug($url);
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
