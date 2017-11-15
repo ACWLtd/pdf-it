@@ -29,10 +29,10 @@ class PDFController extends Controller
     public function makePdf(Request $request)
     {
         $url = $request->url;
-        dd($request->getRequestUri());
+        var_dump($request->getRequestUri());
         dd($request->getPathInfo());
 
-        
+
         $name = $request->pdfName ?: str_slug($url);
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
