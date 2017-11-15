@@ -30,7 +30,7 @@ class PDFController extends Controller
     {
     	$UriParts = $this->getUriParts($request->getRequestUri());
 
-        $url = $UriParts['url'];
+        $url = urlencode($UriParts['url']);
         $name = $UriParts['pdfName'];
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
