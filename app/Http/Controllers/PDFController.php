@@ -30,12 +30,12 @@ class PDFController extends Controller
     {
     	$UriParts = $this->getUriParts($request->getRequestUri());
 
-        $url = urlencode($UriParts['url']);
+        $url = $UriParts['url'];
         $name = $UriParts['pdfName'];
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
-            $exec = $this->nowMake($url, $file);
+            $exec = $this->nowMake(urlencode($url), $file);
 
             var_dump($exec);
 
