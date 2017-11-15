@@ -28,12 +28,10 @@ class PDFController extends Controller
      */
     public function makePdf(Request $request)
     {
-        $url = $request->url;
-        dd($this->getUriParts($request->getRequestUri()));
+    	$UriParts = $this->getUriParts($request->getRequestUri());
 
-
-
-        $name = $request->pdfName ?: str_slug($url);
+        $url = $UriParts['url'];
+        $name = $UriParts['pdfName'];
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
@@ -60,8 +58,10 @@ class PDFController extends Controller
      */
     public function grabPdfData(Request $request)
     {
-        $url = $request->url;
-        $name = $request->pdfName ?: str_slug($url);
+	    $UriParts = $this->getUriParts($request->getRequestUri());
+
+	    $url = $UriParts['url'];
+	    $name = $UriParts['pdfName'];
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
