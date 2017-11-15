@@ -37,8 +37,8 @@ class PDFController extends Controller
             $file = "$name.pdf";
             $exec = $this->nowMake($url, $file);
 
-            var_dump(file_exists($file));
-            
+            var_dump($exec);
+
             if ( $exec && file_exists($file) ) {
                 header('Content-type: application/octet-stream');
                 header('Content-Disposition: attachment; filename="' . basename($file) . '"');
