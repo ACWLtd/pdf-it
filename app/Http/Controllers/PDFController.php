@@ -33,9 +33,12 @@ class PDFController extends Controller
         $url = $UriParts['url'];
         $name = $UriParts['pdfName'];
 
+
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
             $exec = $this->nowMake($url, $file);
+
+            dd($exec);
 
             if ( $exec && file_exists($file) ) {
                 header('Content-type: application/octet-stream');
@@ -49,6 +52,8 @@ class PDFController extends Controller
                 exit;
             }
         }
+        else
+        	dd(filter_var($url, FILTER_VALIDATE_URL));
 
     }
 
@@ -63,12 +68,8 @@ class PDFController extends Controller
 	    $url = $UriParts['url'];
 	    $name = $UriParts['pdfName'];
 
-	    dd($UriParts);
-
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
-            var_dump($file);
-            dd($url);
             $exec = $exec = $this->nowMake($url, $file);
 
             if ( $exec && file_exists($file) ) {
@@ -76,10 +77,6 @@ class PDFController extends Controller
                 unlink($file);
                 return $data;
             }
-        }
-        else {
-        	var_dump($url);
-        	dd(filter_var($url, FILTER_VALIDATE_URL));
         }
     }
 
@@ -112,7 +109,6 @@ class PDFController extends Controller
     		$pdfName = str_slug(explode('?pdfname=', $parts[0])[1]);
 	    }
 
-	    dd($uri);
 	    return compact('url', 'pdfName');
     }
 
