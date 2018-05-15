@@ -35,25 +35,29 @@ class PDFController extends Controller
 
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
-            $file = "$name.pdf";
-            $exec = $this->nowMake($url, $file);
 
-            dd($exec);
+        	try {
+		        $file = "$name.pdf";
+		        $exec = $this->nowMake($url, $file);
 
-            if ( $exec && file_exists($file) ) {
-                header('Content-type: application/octet-stream');
-                header('Content-Disposition: attachment; filename="' . basename($file) . '"');
-                header('Expires: 0');
-                header('Cache-Control: must-revalidate');
-                header('Pragma: public');
-                header('Content-Length: ' . filesize($file));
-                readfile($file);
-                unlink($file);
-                exit;
-            }
+		        dd($exec);
+
+		        if ( $exec && file_exists($file) ) {
+			        header('Content-type: application/octet-stream');
+			        header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+			        header('Expires: 0');
+			        header('Cache-Control: must-revalidate');
+			        header('Pragma: public');
+			        header('Content-Length: ' . filesize($file));
+			        readfile($file);
+			        unlink($file);
+			        exit;
+		        }
+	        }
+	        catch (\Exception $e) {
+        		dd($e);
+	        }
         }
-        else
-        	dd(filter_var($url, FILTER_VALIDATE_URL));
 
     }
 
