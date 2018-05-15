@@ -63,6 +63,8 @@ class PDFController extends Controller
 	    $url = $UriParts['url'];
 	    $name = $UriParts['pdfName'];
 
+	    dd($UriParts);
+
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
             var_dump($file);
