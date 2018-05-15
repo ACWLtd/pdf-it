@@ -112,6 +112,7 @@ class PDFController extends Controller
     		$pdfName = str_slug(explode('?pdfname=', $parts[0])[1]);
 	    }
 
+	    dd($pdfName);
 	    return compact('url', 'pdfName');
     }
 
