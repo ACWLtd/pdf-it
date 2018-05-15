@@ -65,6 +65,8 @@ class PDFController extends Controller
 
         if ( $url && filter_var($url, FILTER_VALIDATE_URL) && $name ) {
             $file = "$name.pdf";
+            var_dump($file);
+            dd($url);
             $exec = $exec = $this->nowMake($url, $file);
 
             if ( $exec && file_exists($file) ) {
@@ -104,8 +106,7 @@ class PDFController extends Controller
     		$pdfName = str_slug(explode('?pdfname=', $parts[0])[1]);
 	    }
 
-	    dd($url);
-//	    return compact('url', 'pdfName');
+	    return compact('url', 'pdfName');
     }
 
 }
