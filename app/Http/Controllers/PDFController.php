@@ -75,6 +75,10 @@ class PDFController extends Controller
                 return $data;
             }
         }
+        else {
+        	var_dump($url);
+        	dd(filter_var($url, FILTER_VALIDATE_URL));
+        }
     }
 
 	/**
